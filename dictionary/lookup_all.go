@@ -53,7 +53,7 @@ func (dictLookup *DictionaryLookup) lookupAllDictionaries(
 	var results []LookupResult
 
 	// collect responses
-	for i := 0; i < total; i++ {
+	for range total {
 		r := <-resultsCh
 
 		if r.Err != nil {
