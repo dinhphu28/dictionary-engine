@@ -10,7 +10,7 @@ import (
 	"github.com/dinhphu28/dictionary"
 	"github.com/dinhphu28/dictionary/doctor"
 	"github.com/dinhphu28/dictionary/internal/api"
-	"github.com/dinhphu28/dictionary/pkg/cmd/native"
+	"github.com/dinhphu28/dictionary/native"
 )
 
 func main() {
