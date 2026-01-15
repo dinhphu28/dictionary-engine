@@ -47,3 +47,11 @@ func LoadedDictionaries() int {
 func GetApproximateLookup() dictionary.ApproximateLookup {
 	return *approximateLookup
 }
+
+func Lookup(q string) (dictionary.LookupResultWithSuggestion, error) {
+	result, err := approximateLookup.LookupWithSuggestion(q)
+	if err != nil {
+		return dictionary.LookupResultWithSuggestion{}, err
+	}
+	return result, nil
+}

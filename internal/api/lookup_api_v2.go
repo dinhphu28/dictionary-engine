@@ -4,17 +4,13 @@ import (
 	"net/http"
 	"strings"
 
-	"dinhphu28.com/dictionary/dictionary"
+	"dinhphu28.com/dictionary"
 )
 
-type LookupHandlerV2 struct {
-	approximateLookup dictionary.ApproximateLookup
-}
+type LookupHandlerV2 struct{}
 
-func NewLookupHandlerV2(approximateLookup dictionary.ApproximateLookup) *LookupHandlerV2 {
-	return &LookupHandlerV2{
-		approximateLookup: approximateLookup,
-	}
+func NewLookupHandlerV2() *LookupHandlerV2 {
+	return &LookupHandlerV2{}
 }
 
 func (lookupHandler *LookupHandlerV2) ServeHTTP(
@@ -27,7 +23,7 @@ func (lookupHandler *LookupHandlerV2) ServeHTTP(
 		return
 	}
 
-	result, err := lookupHandler.approximateLookup.LookupWithSuggestion(q)
+	result, err := dictionary.Lookup(q)
 	if err != nil {
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 		return

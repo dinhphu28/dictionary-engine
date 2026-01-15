@@ -8,9 +8,7 @@ import (
 
 func checkLookup() {
 	dictionary.StartEngine()
-	approximateLookup := dictionary.GetApproximateLookup()
-
-	result, err := approximateLookup.LookupWithSuggestion("hello")
+	result, err := dictionary.Lookup("hello")
 	if err != nil {
 		fmt.Println("✖ Lookup failed:", err)
 		return

@@ -45,7 +45,7 @@ func runNative() {
 	log.Println("Native host started")
 
 	dictionary.StartEngine()
-	approximateLookup := dictionary.GetApproximateLookup()
+	// approximateLookup := dictionary.GetApproximateLookup()
 
 	ready := dictionary.Ready()
 	loadedDictionaries := dictionary.LoadedDictionaries()
@@ -84,7 +84,8 @@ func runNative() {
 
 		case native.Lookup:
 			// 🔁 TEMP: fake result to prove Chrome works
-			result, err := approximateLookup.LookupWithSuggestion(req.Query)
+			// result, err := approximateLookup.LookupWithSuggestion(req.Query)
+			result, err := dictionary.Lookup(req.Query)
 			if err != nil {
 				_ = native.WriteMessage(native.Response{
 					Type:    native.Error,
@@ -113,9 +114,10 @@ func runHTTP() {
 	fmt.Println("HTTP mode")
 
 	dictionary.StartEngine()
-	approximateLookup := dictionary.GetApproximateLookup()
-
-	lookupHandlerV2 := api.NewLookupHandlerV2(approximateLookup)
+	// approximateLookup := dictionary.GetApproximateLookup()
+	//
+	// lookupHandlerV2 := api.NewLookupHandlerV2(approximateLookup)
+	lookupHandlerV2 := api.NewLookupHandlerV2()
 	router := api.NewRouter(*lookupHandlerV2)
 	router.StartAPIServer()
 }
