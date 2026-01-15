@@ -5,14 +5,13 @@ import (
 	"path/filepath"
 
 	"github.com/dinhphu28/dictionary/database"
-	"github.com/dinhphu28/dictionary/dictionary"
 	"github.com/dinhphu28/dictionary/internal/config"
 	"github.com/dinhphu28/dictionary/internal/setup"
 )
 
 var (
 	dictionaries      []database.Dictionary
-	approximateLookup *dictionary.ApproximateLookup
+	approximateLookup *ApproximateLookup
 )
 
 func StartEngine() {
@@ -32,8 +31,8 @@ func StartEngine() {
 
 	log.Printf("Loaded %d dictionaries\n", len(dictionaries))
 
-	dictionaryLookup := dictionary.NewDictionaryLookup(dictionaries, globalConfig)
-	approximateLookup = dictionary.NewApproximateLookup(*dictionaryLookup)
+	dictionaryLookup := NewDictionaryLookup(dictionaries, globalConfig)
+	approximateLookup = NewApproximateLookup(*dictionaryLookup)
 }
 
 func Ready() bool {
@@ -44,14 +43,14 @@ func LoadedDictionaries() int {
 	return len(dictionaries)
 }
 
-func GetApproximateLookup() dictionary.ApproximateLookup {
+func GetApproximateLookup() ApproximateLookup {
 	return *approximateLookup
 }
 
-func Lookup(q string) (dictionary.LookupResultWithSuggestion, error) {
+func Lookup(q string) (LookupResultWithSuggestion, error) {
 	result, err := approximateLookup.LookupWithSuggestion(q)
 	if err != nil {
-		return dictionary.LookupResultWithSuggestion{}, err
+		return LookupResultWithSuggestion{}, err
 	}
 	return result, nil
 }
