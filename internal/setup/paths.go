@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"github.com/dinhphu28/dictionary/internal/startup"
 	"github.com/dinhphu28/dictionary/portable"
 )
 
@@ -33,9 +34,9 @@ func installationPaths() Paths {
 
 func portablePaths() Paths {
 	return Paths{
-		BinPath:   ".",
-		ConfigDir: ".",
-		DataDir:   ".",
+		BinPath:   startup.ResolvePath("."),
+		ConfigDir: startup.ResolvePath("."),
+		DataDir:   startup.ResolvePath("."),
 	}
 }
 
