@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/dinhphu28/dictionary/portable"
 )
 
 type Paths struct {
@@ -13,10 +15,25 @@ type Paths struct {
 }
 
 func DefaultPaths() Paths {
+	if portable.IsPortable() {
+		return portablePaths()
+	}
+	return installationPaths()
+}
+
+func installationPaths() Paths {
 	return Paths{
 		BinPath:   binaryInstallationPath(),
 		ConfigDir: configDir(),
 		DataDir:   dataDir(),
+	}
+}
+
+func portablePaths() Paths {
+	return Paths{
+		BinPath:   ".",
+		ConfigDir: ".",
+		DataDir:   ".",
 	}
 }
 
