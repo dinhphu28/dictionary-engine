@@ -1,6 +1,7 @@
 package setup
 
 import (
+	"log"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -16,6 +17,7 @@ type Paths struct {
 
 func DefaultPaths() Paths {
 	if portable.IsPortable() {
+		log.Println("MODE IS PORTABLE")
 		return portablePaths()
 	}
 	return installationPaths()

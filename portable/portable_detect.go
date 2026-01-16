@@ -1,6 +1,7 @@
 package portable
 
 import (
+	"log"
 	"os"
 
 	"github.com/dinhphu28/dictionary/internal/startup"
@@ -12,6 +13,7 @@ func IsPortable() bool {
 
 func hasConfig() bool {
 	configPath := startup.ResolvePath("config.json")
+  log.Printf("CONFIG PATH: %v", configPath)
 	return fileExists(configPath)
 }
 
