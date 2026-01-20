@@ -10,6 +10,20 @@ type Match struct {
 	Dist int
 }
 
+func RankByEditDistanceWithMaxDist(query string, candidates []string, maxDist int) []Match {
+	matches := RankByEditDistance(query, candidates)
+
+	matchesByMaxDist := []Match{}
+
+	for _, match := range matches {
+		if match.Dist <= maxDist {
+			matchesByMaxDist = append(matchesByMaxDist, match)
+		}
+	}
+
+	return matchesByMaxDist
+}
+
 func RankByEditDistance(query string, candidates []string) []Match {
 	q := strings.ToLower(query)
 

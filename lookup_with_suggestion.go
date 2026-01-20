@@ -26,11 +26,8 @@ func (approximateLookup *ApproximateLookup) LookupWithSuggestion(q string) (Look
 		}, nil
 	}
 
-	// NOTE: Rule of thumb: use first 3–4 characters of query.
-	prefix := q
-	if len(prefix) > 4 {
-		prefix = prefix[:4]
-	}
+	prefixLen, maxDist := lookupStrategy(q)
+	prefix := q[:prefixLen]
 
 	// NOTE: Prefer American English (id: oxford_american) database for suggestions.
 	// Find the dictionary in the list.
@@ -49,7 +46,8 @@ func (approximateLookup *ApproximateLookup) LookupWithSuggestion(q string) (Look
 		return LookupResultWithSuggestion{}, err
 	}
 
-	matches := ranking.RankByEditDistance(q, candidates)
+	matches := ranking.RankByEditDistanceWithMaxDist(q, candidates, maxDist)
+
 	if len(matches) == 0 {
 		return LookupResultWithSuggestion{}, nil
 	}
