@@ -54,11 +54,9 @@ func loadConfigAndData() {
 	log.Printf("CONFIG TOML: %v", cfg)
 
 	resourcesPath := cfg.Paths.Resources
-	log.Printf("resourcesPath: %v", resourcesPath)
 	if !filepath.IsAbs(resourcesPath) {
 		resourcesPath = startup.ResolvePath(resourcesPath)
 	}
-	log.Printf("Resource Dir: %v\n", resourcesPath)
 
 	if err := database.LoadDictionaries(resourcesPath); err != nil {
 		log.Fatal("failed to load dictionaries:", err)
