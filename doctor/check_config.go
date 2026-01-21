@@ -11,7 +11,7 @@ import (
 func checkConfig() {
 	cfgPath := filepath.Join(
 		os.Getenv("HOME"),
-		".config/dictionary/config.json",
+		".config/dictionary/config.toml",
 	)
 
 	if _, err := os.Stat(cfgPath); err != nil {
@@ -25,6 +25,6 @@ func checkConfig() {
 		return
 	}
 
-	cfg := config.GetGlobalConfig()
+	cfg := config.GetConfig()
 	fmt.Printf("✔ Config loaded (%d priorities)\n", len(cfg.Priority))
 }
