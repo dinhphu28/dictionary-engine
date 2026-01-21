@@ -1,9 +1,8 @@
 package config
 
-type GlobalConfig struct {
-	Priority []string `json:"priority"`
-	DataDir  string   `json:"data_dir"`
-}
+const (
+	ConfigFile = "config.toml"
+)
 
 type Config struct {
 	Version  int      `toml:"version"`
