@@ -14,7 +14,7 @@ func IsPortable() bool {
 
 func hasConfig() bool {
 	configPath := startup.ResolvePath(config.ConfigFile)
-	log.Printf("CHECK CONFIG PATH: %v", configPath)
+	log.Printf("check nearby config: %v", configPath)
 	return fileExists(configPath)
 }
 

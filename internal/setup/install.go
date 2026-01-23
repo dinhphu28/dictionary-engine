@@ -12,23 +12,20 @@ import (
 func Install(paths Paths) error {
 	// 1. Install binary
 	binPath := paths.BinPath
-	log.Printf("BIN PATH: %v", binPath)
 	if err := installBinary(binPath); err != nil {
 		return err
 	}
 
 	// 2. Install config
-	if err := WriteConfigToml(
-		filepath.Join(paths.ConfigDir, config.ConfigFile),
-		DefaultConfig(),
-		false,
-	); err != nil {
+	configPath := filepath.Join(paths.ConfigDir, config.ConfigFile)
+	log.Printf("install config: %v", configPath)
+	if err := WriteConfigToml(configPath, DefaultConfig(), false); err != nil {
 		return err
 	}
 
 	// 3. Install resources
 	resourcesPath := DefaultConfig().Paths.Resources
-	log.Printf("RESOURCES PATH: %v", resourcesPath)
+	log.Printf("install resources: %v", resourcesPath)
 	if err := installResources(resourcesPath); err != nil {
 		return err
 	}

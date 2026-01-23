@@ -51,7 +51,6 @@ func loadConfigAndData() {
 		log.Fatal("failed to load config:", err)
 	}
 	cfg := config.GetConfig()
-	log.Printf("CONFIG TOML: %v", cfg)
 
 	resourcesPath := cfg.Paths.Resources
 	if !filepath.IsAbs(resourcesPath) {

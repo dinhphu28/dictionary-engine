@@ -18,7 +18,7 @@ type Paths struct {
 
 func DefaultPaths() Paths {
 	if portable.IsPortable() {
-		log.Println("PORTABLE MODE")
+		log.Println("portable mode")
 		return PortablePaths()
 	}
 	return InstallationPaths()
