@@ -55,7 +55,7 @@ func DefaultConfig() *config.Config {
 		},
 	}
 
-	cfg.Paths.Resources = filepath.Join(DefaultPaths().DataDir, "resources")
+	cfg.Paths.Resources = filepath.Join(InstallationPaths().DataDir, "resources")
 
 	return cfg
 }

@@ -19,12 +19,12 @@ type Paths struct {
 func DefaultPaths() Paths {
 	if portable.IsPortable() {
 		log.Println("PORTABLE MODE")
-		return portablePaths()
+		return PortablePaths()
 	}
-	return installationPaths()
+	return InstallationPaths()
 }
 
-func installationPaths() Paths {
+func InstallationPaths() Paths {
 	return Paths{
 		BinPath:   binaryInstallationPath(),
 		ConfigDir: configDir(),
@@ -32,9 +32,9 @@ func installationPaths() Paths {
 	}
 }
 
-func portablePaths() Paths {
+func PortablePaths() Paths {
 	return Paths{
-		BinPath:   startup.ResolvePath("."),
+		BinPath:   startup.ResolvePath("dictionary"),
 		ConfigDir: startup.ResolvePath("."),
 		DataDir:   startup.ResolvePath("."),
 	}

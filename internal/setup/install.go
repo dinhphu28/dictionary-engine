@@ -5,21 +5,30 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/dinhphu28/dictionary/internal/config"
 )
 
 func Install(paths Paths) error {
 	// 1. Install binary
 	binPath := paths.BinPath
+	log.Printf("BIN PATH: %v", binPath)
 	if err := installBinary(binPath); err != nil {
 		return err
 	}
 
-	if err := installConfigs(paths); err != nil {
+	// 2. Install config
+	if err := WriteConfigToml(
+		filepath.Join(paths.ConfigDir, config.ConfigFile),
+		DefaultConfig(),
+		false,
+	); err != nil {
 		return err
 	}
 
-	// 2. Install resources
-	resourcesPath := filepath.Join(paths.DataDir, "resources")
+	// 3. Install resources
+	resourcesPath := DefaultConfig().Paths.Resources
+	log.Printf("RESOURCES PATH: %v", resourcesPath)
 	if err := installResources(resourcesPath); err != nil {
 		return err
 	}
@@ -29,26 +38,12 @@ func Install(paths Paths) error {
 
 func installBinary(path string) error {
 	if err := copyFile(
-		"./dictionary",
+		DefaultPaths().BinPath,
 		path,
 		0o755,
 	); err != nil {
 		return fmt.Errorf("install binary: %w", err)
 	}
-	return nil
-}
-
-func installConfigs(paths Paths) error {
-	// 1. Install config.toml (only if not exists)
-	// cfgDst := filepath.Join(paths.ConfigDir, config.ConfigFile)
-	// if _, err := os.Stat(cfgDst); os.IsNotExist(err) {
-	// 	if err := copyFile(startup.ResolvePath(config.ConfigFile), cfgDst, 0o644); err != nil {
-	// 		return err
-	// 	}
-	// }
-
-	WriteConfigToml(paths.ConfigDir, DefaultConfig(), false)
-
 	return nil
 }
 
