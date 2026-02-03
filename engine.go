@@ -50,7 +50,7 @@ func loadConfigAndData() {
 	if err := config.LoadConfig(configPath); err != nil {
 		log.Fatal("failed to load config:", err)
 	}
-	cfg := config.GetConfig()
+	cfg = config.GetConfig()
 
 	resourcesPath := cfg.Paths.Resources
 	if !filepath.IsAbs(resourcesPath) {
